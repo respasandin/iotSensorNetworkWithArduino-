@@ -17,22 +17,23 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPosition;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class Ventana3 extends javax.swing.JFrame {
+public class receiveData extends javax.swing.JFrame {
     App refventanainicial=null;
     public ResultSet rs;
     public Statement stmt;
     public Connection con;
-    DefaultTableModel modelo;
+    DefaultTableModel model;
     public ResultSet rs2;
     public Statement stmt2;
     public Connection con2;
-    DefaultTableModel modelo2;  
-    String []datos2 = new String [2];
-    String []datos = new String [2];  
+    DefaultTableModel model2;
+    String [] stringData = new String [2];
+    String [] stringData2 = new String [2];
     ChartPanel frame;
     ChartPanel frame2;
     DefaultCategoryDataset data2;
@@ -40,11 +41,11 @@ public class Ventana3 extends javax.swing.JFrame {
     private String host = "127.0.0.1";
     private int db_port = 8889;
     
-    public Ventana3(java.awt.Frame parent, boolean modal) throws IOException, InterruptedException, SQLException {
+    public receiveData(java.awt.Frame parent, boolean modal) throws IOException, InterruptedException, SQLException {
         initComponents();
         refventanainicial= (App)parent;
-        DatosTabla();
-        Receive();
+        data();
+        receive();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -194,7 +195,7 @@ public class Ventana3 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void Receive() throws IOException, InterruptedException{
+    public void receive() throws IOException, InterruptedException{
         final connection rec = new connection("");
         rec.pack();
         connection.demo.setVisible(false);
@@ -208,12 +209,12 @@ public class Ventana3 extends javax.swing.JFrame {
        connection.demo.setVisible(false);
        connection.demo2.setVisible(false);
     }//GEN-LAST:event_exit2ActionPerformed
-    public void DatosTabla() {
-        modelo= new DefaultTableModel();
-        modelo.addColumn("Fecha");
-        modelo.addColumn("Valor");
+    public void data() {
+        model = new DefaultTableModel();
+        model.addColumn("Fecha");
+        model.addColumn("Valor");
     
-        jTable1.setModel(modelo);
+        jTable1.setModel(model);
         TableColumn column1 =  jTable1.getColumn("Valor");
         column1.setPreferredWidth(1);
 
@@ -222,21 +223,20 @@ public class Ventana3 extends javax.swing.JFrame {
             stmt=con.createStatement();
             rs =stmt.executeQuery("SELECT * FROM ph");
             while(rs.next()){
-                datos[0]=rs.getString(1);
-                datos[1]=rs.getString(2);
-                modelo.addRow(datos);
+                stringData2[0]=rs.getString(1);
+                stringData2[1]=rs.getString(2);
+                model.addRow(stringData2);
             }
-            jTable1.setModel(modelo);
+            jTable1.setModel(model);
         }catch (SQLException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        modelo2= new DefaultTableModel(); 
-        modelo2.addColumn("Fecha");
-        modelo2.addColumn("Valor (μS/m)");
-        
-    
-        jTable2.setModel(modelo2);
+        model2 = new DefaultTableModel();
+        model2.addColumn("Fecha");
+        model2.addColumn("Valor (μS/m)");
+
+        jTable2.setModel(model2);
         TableColumn column =  jTable2.getColumn("Valor (μS/m)");
         column.setPreferredWidth(1);
         try {
@@ -244,21 +244,21 @@ public class Ventana3 extends javax.swing.JFrame {
             stmt2=con2.createStatement();
             rs2 =stmt2.executeQuery("SELECT * FROM conductividade");
             while(rs2.next()){
-                datos2[0]=rs2.getString(1);
-                datos2[1]=rs2.getString(2);
-                modelo2.addRow(datos2);
+                stringData[0]=rs2.getString(1);
+                stringData[1]=rs2.getString(2);
+                model2.addRow(stringData);
             }
-            jTable2.setModel(modelo2);
+            jTable2.setModel(model2);
         }catch (SQLException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         }
         drawPH();
         drawC();
   }          
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        modelo= new DefaultTableModel();
-        modelo2= new DefaultTableModel();
-        DatosTabla();
+        model = new DefaultTableModel();
+        model2 = new DefaultTableModel();
+        data();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -270,19 +270,19 @@ public class Ventana3 extends javax.swing.JFrame {
         data = new DefaultCategoryDataset();
         int i;
 
-        for ( i = 0; i < modelo.getRowCount(); i++){
-                String valor = modelo.getValueAt(i,0).toString();
-                Double dia = Double.valueOf(modelo.getValueAt(i ,1).toString().trim());
+        for (i = 0; i < model.getRowCount(); i++){
+                String valor = model.getValueAt(i,0).toString();
+                Double dia = Double.valueOf(model.getValueAt(i ,1).toString().trim());
                 data.addValue(dia, "", valor);
         }
             JFreeChart Chart = ChartFactory.createLineChart("Sensor de PH",
                     "", "PH", data, PlotOrientation.VERTICAL,
-                    false, false, false);  
+                    false, true, false);
             jPanel1.setLayout(new BorderLayout());
             frame = new ChartPanel(Chart);
             frame.setFont(new Font("Serif", Font.PLAIN, 11));
             CategoryAxis axis = Chart.getCategoryPlot().getDomainAxis();
-            axis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+            axis.setTickLabelsVisible(false);
             frame.setPreferredSize(new java.awt.Dimension(1050, 200));
             Chart.setBackgroundPaint(Color.WHITE);
             jPanel1.add(frame,BorderLayout.CENTER);
@@ -294,19 +294,18 @@ public class Ventana3 extends javax.swing.JFrame {
         data2 = new DefaultCategoryDataset();
         int i2;
         
-        for ( i2 = 0; i2 < modelo2.getRowCount(); i2++){
-                String valor2 = modelo2.getValueAt(i2,0).toString();
-                Double dia2 = Double.valueOf(modelo2.getValueAt(i2 , 1).toString());
+        for (i2 = 0; i2 < model2.getRowCount(); i2++){
+                String valor2 = model2.getValueAt(i2,0).toString();
+                Double dia2 = Double.valueOf(model2.getValueAt(i2 , 1).toString());
                 data2.addValue(dia2, "", valor2);
         }
-
             JFreeChart Chart2 = ChartFactory.createLineChart("Sensor condutividade",
                     "", "µS/cm", data2, PlotOrientation.VERTICAL, 
                     false, false, false);
             jPanel2.setLayout(new BorderLayout());
             frame2 = new ChartPanel(Chart2);
             CategoryAxis axis = Chart2.getCategoryPlot().getDomainAxis();
-            axis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+            axis.setTickLabelsVisible(false);
             Chart2.setBackgroundPaint(Color.WHITE);
             frame2.setPreferredSize(new java.awt.Dimension(1050, 200));
             frame2.setBackground(Color.WHITE);
@@ -315,8 +314,6 @@ public class Ventana3 extends javax.swing.JFrame {
             jPanel2.add(frame2,BorderLayout.CENTER);
             jPanel2.validate();
     }
-  
-    
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -332,28 +329,28 @@ public class Ventana3 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Ventana3 dialog = null;
+                receiveData dialog = null;
                 try {
-                    dialog = new Ventana3(new javax.swing.JFrame(), true);
+                    dialog = new receiveData(new javax.swing.JFrame(), true);
                 } catch (IOException ex) {
-                    Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
@@ -379,5 +376,4 @@ public class Ventana3 extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
-
 }

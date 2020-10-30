@@ -29,8 +29,8 @@ public class connection extends ApplicationFrame implements ActionListener {
     public PreparedStatement  stmt2;
     public Connection con2;
     boolean end = false;
-    public  String server_IP = "192.168.8.103";
-    public  int server_Port = 8080;
+    public  String serverIp = "192.168.8.103";
+    public  int serverPort = 8080;
     public  ObjectOutputStream out; 
     public  OutputStream output;
     public  static Socket so;
@@ -44,40 +44,40 @@ public class connection extends ApplicationFrame implements ActionListener {
         
     }
     
-    public connection(String title) throws IOException, InterruptedException {
+    public connection(String title) throws IOException {
         super(title);  
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
-                BufferedInputStream  br;
-                try {
-                    getCurrentTimeUsingCalendar();
-                    try{
-                        so = new Socket (server_IP,server_Port); 
-                        //Makes connection with Arduino
-                        output = so.getOutputStream(); 
-                        output.write(App.timei);
-                        //Send to Arduino the update time
-                        output.write(1);    
-                        //Send 1 to go to connection     
-                    } 
-                    catch ( IOException ex) {
-                        Logger.getLogger
-                        (App.class.getName()).log(Level.SEVERE, null, ex);
-                    }     
-                    //Receives the data from Arduino
-                    br = new BufferedInputStream(so.getInputStream());
-                    //Makes a buffer to read the data
-                    number = br.read(); //Read first line
-                    number2 = br.read(); //Read second line
-                    writeDatabase(); //Go to Database
-                } catch (IOException | SQLException ex) {
-                    Logger.getLogger
-                    (connection.class.getName()).log(Level.SEVERE, null, ex);
+            BufferedInputStream  br;
+            try {
+                getCurrentTimeUsingCalendar();
+                try{
+                    so = new Socket (serverIp, serverPort);
+                    //Makes connection with Arduino
+                    output = so.getOutputStream();
+                    output.write(App.timeinterval);
+                    //Send to Arduino the update time
+                    output.write(1);
+                    //Send 1 to go to connection
                 }
-              }
-            };timer.scheduleAtFixedRate(task, 0 , App.timei*1000);
-            //Makes this taks every input time
+                catch ( IOException ex) {
+                    Logger.getLogger
+                    (App.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Receives the data from Arduino
+                br = new BufferedInputStream(so.getInputStream());
+                //Makes a buffer to read the data
+                number = br.read(); //Read first line
+                number2 = br.read(); //Read second line
+                writeDatabase(); //Go to Database
+            } catch (IOException | SQLException ex) {
+                Logger.getLogger
+                (connection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
+        };timer.scheduleAtFixedRate(task, 0 , App.timeinterval *1000);
+        //Makes this taks every input time
             
         //Creates the graphs and set visible
         demo = new DynamicLineAndTimeSeriesChart("Sensor de PH");

@@ -13,9 +13,12 @@ eligible by the user, as well as storing all the values in a database in the clo
 - Arduino 101 industrial module
 - Linux/MacOS/Windows PC
 - Sensors
+- MAMP 
+- Database 
 
 ## Usage
-Before running the java program, make sure the Arduino and the docker image for the database are running
-### MySQL
-Use `docker-compose up` to start the database in `localhost:8080`
+Run App, insert a time interval in seconds. 
+
+To check real time values of the sensors press `Conectar` to see all historic values press `Base de datos`
+
 

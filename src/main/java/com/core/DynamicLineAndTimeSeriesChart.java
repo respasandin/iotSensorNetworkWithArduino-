@@ -23,7 +23,7 @@ public class DynamicLineAndTimeSeriesChart extends ApplicationFrame implements A
     private TimeSeries series;
     private double lastValue ;
  
-    private Timer timer2 = new Timer(App.timei*1000, this); //Update time
+    private Timer timer2 = new Timer(App.timeinterval *1000, this); //Update time
     
     public DynamicLineAndTimeSeriesChart(final String title) throws IOException {
         super(title);
@@ -33,7 +33,7 @@ public class DynamicLineAndTimeSeriesChart extends ApplicationFrame implements A
         final JFreeChart chart = createChart(dataset);
         timer2.setInitialDelay(100);
         
-        chart.setBackgroundPaint(Color.LIGHT_GRAY);
+        chart.setBackgroundPaint(Color.WHITE);
         final JPanel content = new JPanel(new BorderLayout());
 
         //Created Chartpanel for chart area
@@ -47,20 +47,23 @@ public class DynamicLineAndTimeSeriesChart extends ApplicationFrame implements A
 
     private JFreeChart createChart(final XYDataset dataset) {
         final JFreeChart result = ChartFactory.createTimeSeriesChart("Sensor PH", "", 
-         "Valor de PH",dataset, false, false, false
+         "ph",dataset, false, false, false
          );
 
         final XYPlot plot = result.getXYPlot();
-        plot.setBackgroundPaint(new Color(0xffffe0));
+        plot.setDomainGridlinesVisible(true);
+        plot.setRangeGridlinesVisible(false);
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.WHITE);
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.WHITE);
+        plot.setDomainCrosshairVisible(true);
+        plot.setDomainCrosshairLockedOnData(true);
+        plot.setRangeCrosshairVisible(true);
+        plot.setRangeCrosshairLockedOnData(true);
 
         ValueAxis xaxis = plot.getDomainAxis();
-        //xaxis.setAutoRange(true); //Adjust de x axis to the data values
-   
-        xaxis.setFixedAutoRange(100000);  
+        xaxis.setAutoRange(true); //Adjust de x axis to the data values
         xaxis.setVerticalTickLabels(true);
 
         ValueAxis yaxis = plot.getRangeAxis(); 

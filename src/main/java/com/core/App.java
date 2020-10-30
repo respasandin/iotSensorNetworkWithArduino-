@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class App extends javax.swing.JFrame {
     public  String time;
-    static int timei;
+    static int timeinterval;
     
     public App() {
         initComponents();
@@ -88,23 +88,23 @@ public class App extends javax.swing.JFrame {
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
            time = jTextField1.getText(); 
-           timei = Integer.parseInt(time);
+           timeinterval = Integer.parseInt(time);
         try {
-            Saltar();    
+            saltar();
         } catch (IOException | InterruptedException | SQLException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_connectActionPerformed
-    public void Saltar() throws IOException, InterruptedException, SQLException{
+    public void saltar() throws IOException, InterruptedException, SQLException{
           final connection rec = new connection("");
           rec.pack();
     }
     private void dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataActionPerformed
         time = jTextField1.getText(); 
-        timei = Integer.parseInt(time);
+        timeinterval = Integer.parseInt(time);
         try {
-            refmenu2=new Ventana3(this,true);
+            refmenu2=new receiveData(this,true);
             refmenu2.setVisible(true);
             this.setVisible(false);
         } catch (IOException | InterruptedException | SQLException ex) {
@@ -143,7 +143,7 @@ public class App extends javax.swing.JFrame {
             }
         });
     }
-Ventana3 refmenu2=null;
+receiveData refmenu2=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connect;
     private javax.swing.JButton data;

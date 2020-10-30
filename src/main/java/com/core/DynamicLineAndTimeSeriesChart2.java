@@ -22,7 +22,7 @@ public class DynamicLineAndTimeSeriesChart2 extends ApplicationFrame implements 
     private TimeSeries series2;
     private double lastValue2 ;
     
-    private Timer timer2 = new Timer(App.timei*1000, this); //Update time
+    private Timer timer2 = new Timer(App.timeinterval *1000, this); //Update time
  
     public DynamicLineAndTimeSeriesChart2(final String title) throws IOException {
         super(title);
@@ -32,7 +32,7 @@ public class DynamicLineAndTimeSeriesChart2 extends ApplicationFrame implements 
         final JFreeChart chart = createChart(dataset);
         timer2.setInitialDelay(100);
 
-        chart.setBackgroundPaint(Color.lightGray);
+        chart.setBackgroundPaint(Color.WHITE);
         final JPanel content = new JPanel(new BorderLayout());
 
         //Created Chartpanel for chart area
@@ -51,16 +51,19 @@ public class DynamicLineAndTimeSeriesChart2 extends ApplicationFrame implements 
         );
 
         final XYPlot plot = result.getXYPlot();
-        plot.setBackgroundPaint(Color.WHITE);
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.WHITE);
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.WHITE);
+        plot.setDomainCrosshairVisible(true);
+        plot.setDomainCrosshairLockedOnData(true);
+        plot.setRangeCrosshairVisible(true);
+        plot.setRangeCrosshairLockedOnData(true);
 
         ValueAxis xaxis = plot.getDomainAxis();
         xaxis.setAutoRange(true); //Adjust de x axis to the data values
-   
-        xaxis.setFixedAutoRange(100000);  
+
+        //xaxis.setFixedAutoRange(100000);
         xaxis.setVerticalTickLabels(true);
 
         ValueAxis yaxis = plot.getRangeAxis();
