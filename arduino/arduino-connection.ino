@@ -55,6 +55,7 @@ void loop() {
       connection();
       }
  }
+
 void connection(){ //Connect with Java to send the data
       getPH();
       client.write(valorP);
