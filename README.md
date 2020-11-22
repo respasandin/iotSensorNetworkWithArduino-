@@ -14,8 +14,5 @@ eligible by the user, as well as storing all the values in a database in the clo
 - Linux/MacOS/Windows PC
 - Sensors
 
-## Usage
 Before running the java program, make sure the Arduino and the docker image for the database are running
-### MySQL
-Use `docker-compose up` to start the database in `localhost:8080`
 
