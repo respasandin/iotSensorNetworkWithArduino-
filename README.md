@@ -14,5 +14,5 @@ eligible by the user, as well as storing all the values in a database in the clo
 - Linux/MacOS/Windows PC
 - Sensors
 
-Before running the java program, make sure the Arduino and the docker image for the database are running
+Before running the java program, make sure the Arduino or Arduinos are running
 
