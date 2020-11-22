@@ -29,7 +29,7 @@ public class connection extends ApplicationFrame implements ActionListener {
     public PreparedStatement  stmt2;
     public Connection con2;
     boolean end = false;
-    public  String server_IP = "192.168.8.103";
+    public  String server_IP = App.host;
     public  int server_Port = 8080;
     public  ObjectOutputStream out; 
     public  OutputStream output;
@@ -96,14 +96,14 @@ public class connection extends ApplicationFrame implements ActionListener {
    }  
     public void writeDatabase() throws SQLException{
          //Makes connection with the database and insert date and value
-         con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/arduino?user=root&password=root");
+         con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/" + App.host + "?user=root&password=root");
          stmt = con.prepareStatement(" INSERT INTO ph (fecha, valor)" + " values (?, ?)");
          stmt.setString(1,formattedDate);
          stmt.setInt(2, number);
          // execute the preparedstatement
          stmt.executeUpdate();
 
-         con2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/arduino?user=root&password=root");
+         con2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/" + App.host + "?user=root&password=root");
          stmt2 = con2.prepareStatement(" INSERT INTO conductividade (fecha, valor)"
                  + " values (?, ?)");
          stmt2.setString(1,formattedDate);

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 public class App extends javax.swing.JFrame {
     public  String time;
     static int timei;
+    public static String host;
     
     public App() {
         initComponents();
@@ -21,6 +22,8 @@ public class App extends javax.swing.JFrame {
         data = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -44,6 +47,14 @@ public class App extends javax.swing.JFrame {
 
         jLabel1.setText("Intervalo de actualización");
 
+        jLabel2.setText("Arduino IP");
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
         jMenuBar1.setForeground(new java.awt.Color(0, 153, 204));
 
         jMenu1.setForeground(new java.awt.Color(0, 153, 204));
@@ -61,8 +72,12 @@ public class App extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(connect)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(data))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -76,17 +91,22 @@ public class App extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connect)
                     .addComponent(data))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
+           host = jTextField2.getText();
            time = jTextField1.getText(); 
            timei = Integer.parseInt(time);
         try {
@@ -101,6 +121,7 @@ public class App extends javax.swing.JFrame {
           rec.pack();
     }
     private void dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataActionPerformed
+        host = jTextField2.getText();
         time = jTextField1.getText(); 
         timei = Integer.parseInt(time);
         try {
@@ -111,6 +132,10 @@ public class App extends javax.swing.JFrame {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }     
     }//GEN-LAST:event_dataActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+       
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -148,9 +173,11 @@ Ventana3 refmenu2=null;
     private javax.swing.JButton connect;
     private javax.swing.JButton data;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
 }
