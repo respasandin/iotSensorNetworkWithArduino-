@@ -51,7 +51,7 @@ public class DynamicLineAndTimeSeriesChart extends ApplicationFrame implements A
          );
 
         final XYPlot plot = result.getXYPlot();
-        plot.setBackgroundPaint(new Color(0xffffe0));
+        plot.setBackgroundPaint(Color.WHITE);
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.WHITE);
         plot.setRangeGridlinesVisible(true);
