@@ -223,7 +223,7 @@ public class Ventana3 extends javax.swing.JFrame {
         column1.setPreferredWidth(1);
 
         try {
-            con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/arduino?user=root&password=root");
+            con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/'" + App.host + "'?user=root&password=root");
             stmt=con.createStatement();
             rs =stmt.executeQuery("SELECT * FROM ph");
             while(rs.next()){
@@ -245,7 +245,7 @@ public class Ventana3 extends javax.swing.JFrame {
         TableColumn column =  jTable2.getColumn("Valor (μS/m)");
         column.setPreferredWidth(1);
         try {
-            con2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/arduino?user=root&password=root");
+            con2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/'" + App.host + "'?user=root&password=root");
             stmt2=con2.createStatement();
             rs2 =stmt2.executeQuery("SELECT * FROM conductividade");
             while(rs2.next()){
@@ -286,13 +286,10 @@ public class Ventana3 extends javax.swing.JFrame {
             jPanel1.setLayout(new BorderLayout());
             frame = new ChartPanel(Chart);
             frame.setFont(new Font("Serif", Font.PLAIN, 11));
-            CategoryAxis axis = Chart.getCategoryPlot().getDomainAxis();
-            axis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
             frame.setPreferredSize(new java.awt.Dimension(1050, 200));
             Chart.setBackgroundPaint(Color.WHITE);
             jPanel1.add(frame,BorderLayout.CENTER);
             frame.setVerticalAxisTrace(true);
-            frame.setHorizontalAxisTrace(true);
             jPanel1.validate();       
         }       
     private void drawC(){
@@ -310,13 +307,10 @@ public class Ventana3 extends javax.swing.JFrame {
                     false, false, false);
             jPanel2.setLayout(new BorderLayout());
             frame2 = new ChartPanel(Chart2);
-            CategoryAxis axis = Chart2.getCategoryPlot().getDomainAxis();
-            axis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
             Chart2.setBackgroundPaint(Color.WHITE);
             frame2.setPreferredSize(new java.awt.Dimension(1050, 200));
             frame2.setBackground(Color.WHITE);
             frame2.setVerticalAxisTrace(true);
-            frame2.setHorizontalAxisTrace(true);
             jPanel2.add(frame2,BorderLayout.CENTER);
             jPanel2.validate();
     }
