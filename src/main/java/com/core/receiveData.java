@@ -16,12 +16,10 @@ import javax.swing.table.TableColumn;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class Ventana3 extends javax.swing.JFrame {
+public class receiveData extends javax.swing.JFrame {
     App refventanainicial=null;
     public ResultSet rs;
     public Statement stmt;
@@ -40,7 +38,7 @@ public class Ventana3 extends javax.swing.JFrame {
     private String host = "127.0.0.1";
     private int db_port = 8889;
     
-    public Ventana3(java.awt.Frame parent, boolean modal) throws IOException, InterruptedException, SQLException {
+    public receiveData(java.awt.Frame parent, boolean modal) throws IOException, InterruptedException, SQLException {
         initComponents();
         refventanainicial= (App)parent;
         DatosTabla();
@@ -106,7 +104,7 @@ public class Ventana3 extends javax.swing.JFrame {
         jLabel1.setText("Sensor de PH");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Sensor de conductividade");
+        jLabel2.setText("Sensor de condutividade");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -233,7 +231,7 @@ public class Ventana3 extends javax.swing.JFrame {
             }
             jTable1.setModel(modelo);
         }catch (SQLException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         modelo2= new DefaultTableModel(); 
@@ -247,7 +245,7 @@ public class Ventana3 extends javax.swing.JFrame {
         try {
             con2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/'" + App.host + "'?user=root&password=root");
             stmt2=con2.createStatement();
-            rs2 =stmt2.executeQuery("SELECT * FROM conductividade");
+            rs2 =stmt2.executeQuery("SELECT * FROM condutividade");
             while(rs2.next()){
                 datos2[0]=rs2.getString(1);
                 datos2[1]=rs2.getString(2);
@@ -255,7 +253,7 @@ public class Ventana3 extends javax.swing.JFrame {
             }
             jTable2.setModel(modelo2);
         }catch (SQLException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         }
         drawPH();
         drawC();
@@ -331,28 +329,28 @@ public class Ventana3 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Ventana3 dialog = null;
+                receiveData dialog = null;
                 try {
-                    dialog = new Ventana3(new javax.swing.JFrame(), true);
+                    dialog = new receiveData(new javax.swing.JFrame(), true);
                 } catch (IOException ex) {
-                    Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Ventana3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(receiveData.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override

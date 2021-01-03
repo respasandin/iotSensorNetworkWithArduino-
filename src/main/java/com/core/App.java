@@ -125,7 +125,7 @@ public class App extends javax.swing.JFrame {
         time = jTextField1.getText(); 
         timei = Integer.parseInt(time);
         try {
-            refmenu2=new Ventana3(this,true);
+            refmenu2=new receiveData(this,true);
             refmenu2.setVisible(true);
             this.setVisible(false);
         } catch (IOException | InterruptedException | SQLException ex) {
@@ -168,7 +168,7 @@ public class App extends javax.swing.JFrame {
             }
         });
     }
-Ventana3 refmenu2=null;
+receiveData refmenu2=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connect;
     private javax.swing.JButton data;
