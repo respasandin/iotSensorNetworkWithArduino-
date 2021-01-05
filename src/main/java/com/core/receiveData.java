@@ -236,11 +236,11 @@ public class receiveData extends javax.swing.JFrame {
         
         modelo2= new DefaultTableModel(); 
         modelo2.addColumn("Fecha");
-        modelo2.addColumn("Valor (μS/m)");
+        modelo2.addColumn("Valor (mS/cm)");
         
     
         jTable2.setModel(modelo2);
-        TableColumn column =  jTable2.getColumn("Valor (μS/m)");
+        TableColumn column =  jTable2.getColumn("Valor (mS/cm)");
         column.setPreferredWidth(1);
         try {
             con2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/'" + App.host + "'?user=root&password=root");
@@ -280,7 +280,7 @@ public class receiveData extends javax.swing.JFrame {
         }
             JFreeChart Chart = ChartFactory.createLineChart("Sensor de PH",
                     "", "PH", data, PlotOrientation.VERTICAL,
-                    false, false, false);  
+                    false, true, false);  
             jPanel1.setLayout(new BorderLayout());
             frame = new ChartPanel(Chart);
             frame.setFont(new Font("Serif", Font.PLAIN, 11));
@@ -288,6 +288,7 @@ public class receiveData extends javax.swing.JFrame {
             Chart.setBackgroundPaint(Color.WHITE);
             jPanel1.add(frame,BorderLayout.CENTER);
             frame.setVerticalAxisTrace(true);
+            frame.setHorizontalAxisTrace(false);
             jPanel1.validate();       
         }       
     private void drawC(){
@@ -301,14 +302,15 @@ public class receiveData extends javax.swing.JFrame {
         }
 
             JFreeChart Chart2 = ChartFactory.createLineChart("Sensor condutividade",
-                    "", "µS/cm", data2, PlotOrientation.VERTICAL, 
-                    false, false, false);
+                    "", "mS/cm", data2, PlotOrientation.VERTICAL, 
+                    false, true, false);
             jPanel2.setLayout(new BorderLayout());
             frame2 = new ChartPanel(Chart2);
             Chart2.setBackgroundPaint(Color.WHITE);
             frame2.setPreferredSize(new java.awt.Dimension(1050, 200));
             frame2.setBackground(Color.WHITE);
             frame2.setVerticalAxisTrace(true);
+            frame2.setHorizontalAxisTrace(false);
             jPanel2.add(frame2,BorderLayout.CENTER);
             jPanel2.validate();
     }

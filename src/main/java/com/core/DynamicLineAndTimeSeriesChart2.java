@@ -27,7 +27,7 @@ public class DynamicLineAndTimeSeriesChart2 extends ApplicationFrame implements 
     public DynamicLineAndTimeSeriesChart2(final String title) throws IOException {
         super(title);
 
-        this.series2 = new TimeSeries("Valores do sensor de Conductividade", Second.class);
+        this.series2 = new TimeSeries("Valores do sensor de Condutividade", Second.class);
         final TimeSeriesCollection dataset = new TimeSeriesCollection(this.series2);
         final JFreeChart chart = createChart(dataset);
         timer2.setInitialDelay(100);
@@ -47,7 +47,7 @@ public class DynamicLineAndTimeSeriesChart2 extends ApplicationFrame implements 
 
     private JFreeChart createChart(final XYDataset dataset) {
         final JFreeChart result = ChartFactory.createTimeSeriesChart(
-        "Sensor Condutividade","", "µS/cm", dataset, false, false, false
+        "Sensor Condutividade","", "mS/cm", dataset, false, false, false
         );
 
         final XYPlot plot = result.getXYPlot();
@@ -64,7 +64,7 @@ public class DynamicLineAndTimeSeriesChart2 extends ApplicationFrame implements 
         xaxis.setVerticalTickLabels(true);
 
         ValueAxis yaxis = plot.getRangeAxis();
-        yaxis.setRangeWithMargins(1, 50);
+        yaxis.setAutoRange(rootPaneCheckingEnabled);
         
         return result;
     }

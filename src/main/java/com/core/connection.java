@@ -83,7 +83,7 @@ public class connection extends ApplicationFrame implements ActionListener {
         demo = new DynamicLineAndTimeSeriesChart("Sensor de PH");
         demo.pack(); 
         demo.setVisible(true);
-        demo2 = new DynamicLineAndTimeSeriesChart2("Sensor de conductividad");
+        demo2 = new DynamicLineAndTimeSeriesChart2("Sensor de condutividade");
         demo2.pack(); 
         demo2.setVisible(true);
     }
@@ -104,7 +104,7 @@ public class connection extends ApplicationFrame implements ActionListener {
          stmt.executeUpdate();
 
          con2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + db_port + "/'" + App.host + "'?user=root&password=root");
-         stmt2 = con2.prepareStatement(" INSERT INTO conductividade (fecha, valor)"
+         stmt2 = con2.prepareStatement(" INSERT INTO condutividade (fecha, valor)"
                  + " values (?, ?)");
          stmt2.setString(1,formattedDate);
          stmt2.setInt(2, number2);
